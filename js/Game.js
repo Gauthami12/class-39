@@ -30,10 +30,15 @@ class Game {
     }
 
     car1 = createSprite(100,200);
+    car1.addImage(carImg1);
     car2 = createSprite(300,200);
+    car2.addImage(carImg2);
     car3 = createSprite(500,200);
+    car3.addImage(carImg3);
     car4 = createSprite(700,200);
+    car4.addImage(carImg4);
     cars = [car1, car2, car3, car4];
+
   }
 
   play(){
@@ -42,13 +47,15 @@ class Game {
     Player.getPlayerInfo();
     
     if(allPlayers !== undefined){
+      background(ground);
+      image(track, 0 , -displayHeight*4, displayWidth, displayHeight*5);
       //var display_position = 100;
       
       //index of the array
       var index = 0;
 
       //x and y position of the cars
-      var x = 0;
+      var x = 210;
       var y;
 
       for(var plr in allPlayers){
@@ -56,11 +63,13 @@ class Game {
         index = index + 1 ;
 
         //position the cars a little away from each other in x direction
-        x = x + 200;
+        x = x + 250;
         //use data form the database to display the cars in y direction
         y = displayHeight - allPlayers[plr].distance;
         cars[index-1].x = x;
         cars[index-1].y = y;
+        console.log(cars[index-1].x);
+        console.log(cars[index-1].y);
 
         if (index === player.index){
           cars[index - 1].shapeColor = "red";
@@ -79,6 +88,15 @@ class Game {
       player.update();
     }
 
+    if(player.distance > 4200){
+      gameState = 2;
+    }
     drawSprites();
+  }
+  end(){
+ //   textSize(125);
+ //   fill("blue");
+ //   text("Game Ended", 400, -4250);
+ console.log("Game Ended");
   }
 }
